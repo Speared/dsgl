@@ -10,6 +10,11 @@
 #include "Model.h"
 #include "Pipeline.h"
 #include "Node.h"
+#include "Camera.h"
+
+#define WINDOW_WIDTH 100
+#define WINDOW_HEIGHT 100
+
 //http://ogldev.atspace.co.uk/
 
 const char* shaderName = "translation shader";
@@ -18,6 +23,7 @@ const char* uniformName = "gWorld";
 //TODO: one day should be the root node in a scenegraph
 Node world;
 Node moon;
+Camera camera = Camera(PersProjInfo(30.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 1.0f, 10000.0f));
 
 void RenderSceneCB()
 {
@@ -26,9 +32,11 @@ void RenderSceneCB()
 	Scale += 0.01f;
 	
 	//Vector3f scale(sinf(Scale * 0.1f), sinf(Scale * 0.1f), sinf(Scale * 0.1f));
-	Vector3f scale(0.2f, 0.2f, 0.2f);
-	Vector3f pos(sinf(Scale), 0.0f, 0.0f);
-	Vector3f rotation(sinf(Scale) * 90.0f, sinf(Scale) * 90.0f, sinf(Scale) * 90.0f);
+	Vector3f scale(1.0f, 1.0f, 1.0f);
+	//Vector3f pos(sinf(Scale), 0.0f, 10.0f);
+	Vector3f pos = Vector3f(0, 0, 20);
+	//Vector3f rotation(sinf(Scale) * 90.0f, sinf(Scale) * 90.0f, sinf(Scale) * 90.0f);
+	Vector3f rotation = Vector3f(90.0f, Scale * 90, 15);
 
 	world.translation = pos;
 	world.rotation = rotation;
@@ -39,7 +47,7 @@ void RenderSceneCB()
 
 	//These are the only lines that actually belong here
 	glClear(GL_COLOR_BUFFER_BIT);
-	world.Draw(ident);
+	camera.Draw(world);
 	glutSwapBuffers();
 
 
@@ -78,7 +86,7 @@ void CreateScene() {
 	CreateVertexBuffer(m2);
 	world.drawMe = m1;
 	moon.drawMe = m2;
-	moon.translation = Vector3f(2.0f, 0, 0);
+	moon.translation = Vector3f(0.0f, 10, 0.0f);
 	world.AddChild(moon);
 }
 
@@ -97,7 +105,7 @@ int main(int argc, char** argv)
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowSize(1024, 768);
-	glutInitWindowPosition(100, 100);
+	glutInitWindowPosition(WINDOW_WIDTH, WINDOW_HEIGHT);
 	glutCreateWindow("Tutorial");
 	InitializeGlutCallbacks();
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);

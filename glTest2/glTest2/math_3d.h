@@ -212,6 +212,11 @@ struct PersProjInfo
 	float Height;
 	float zNear;
 	float zFar;
+
+	PersProjInfo(float FOV, float Width,
+		float Height, float zNear, float zFar) :
+		FOV(FOV), Width(Width), Height(Height),
+		zNear(zNear), zFar(zFar) {}
 };
 
 struct Quaternion
