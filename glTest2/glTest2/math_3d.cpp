@@ -340,4 +340,3 @@ float RandomFloat()
 	return ((float)rand() / Max);
 }
 
-
