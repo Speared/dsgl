@@ -6,7 +6,7 @@ Node::Node()
 {
 	translation = Vector3f(0.0f);
 	rotation = Vector3f(0.0f);
-	scale = Vector3f(0.0f);
+	scale = Vector3f(1.0f);
 	_pipeline = Pipeline();
 }
 

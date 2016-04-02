@@ -44,10 +44,7 @@ void Pipeline::SetParentTrans(Matrix4f parentTrans)
 void Pipeline::CalculateTransform() {
 	if (dirty) {
 		dirty = false;
-		//TODO: figure out why this line dosn't draw right
-		//even when it gives the exact same matrix as below 
-		//m_transformation = m_parent_trans *  m_position_trans * m_rotate_trans * m_scale_trans;
-		m_transformation = Matrix4f::Identity();
+		m_transformation = m_parent_trans *  m_position_trans * m_rotate_trans * m_scale_trans;
 	}
 }
 
@@ -58,7 +55,6 @@ void Pipeline::Draw(GLuint &VBO, GLuint &IBO)
 	glUniformMatrix4fv(ShaderManager::GetShaderUniform(shaderName, uniformName), 1, GL_TRUE, (const GLfloat*)m_transformation);
 	//Matrix4f m = Matrix4f::Identity();
 	//glUniformMatrix4fv(ShaderManager::GetShaderUniform(shaderName, uniformName), 1, GL_TRUE, (const GLfloat*)m);
-	glClear(GL_COLOR_BUFFER_BIT);
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);

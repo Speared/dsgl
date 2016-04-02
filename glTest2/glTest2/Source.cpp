@@ -24,43 +24,22 @@ void RenderSceneCB()
 	//scale our triangle up and down, maybe this should not be in the render function
 	static float Scale = 0.0f;
 	Scale += 0.01f;
-	/*
-	Vector3f scale(sinf(Scale * 0.1f), sinf(Scale * 0.1f), sinf(Scale * 0.1f));
+	
+	//Vector3f scale(sinf(Scale * 0.1f), sinf(Scale * 0.1f), sinf(Scale * 0.1f));
+	Vector3f scale(0.2f, 0.2f, 0.2f);
 	Vector3f pos(sinf(Scale), 0.0f, 0.0f);
 	Vector3f rotation(sinf(Scale) * 90.0f, sinf(Scale) * 90.0f, sinf(Scale) * 90.0f);
-	*/
-	Vector3f scale(1, 1, 1);
-	Vector3f pos(0, 0, 0);
-	Vector3f rotation(0, 0, 0);
 
-
-	//Pipeline p(scale, pos, rotation);
-
-	/*
-	glUniformMatrix4fv(ShaderManager::GetShaderUniform(myShader, uniformName), 1, GL_TRUE, (const GLfloat*)p.GetTransform());
-
-	GLuint VBO;
-	GLuint IBO;
-
-	myModel.GetBuffers(VBO, IBO);
-
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-
-	glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
-	glDisableVertexAttribArray(0);
-	*/
 	world.translation = pos;
 	world.rotation = rotation;
 	world.scale = scale;
 	Matrix4f ident;
 	ident.InitIdentity();
-	world.Draw(ident);
 
+
+	//These are the only lines that actually belong here
+	glClear(GL_COLOR_BUFFER_BIT);
+	world.Draw(ident);
 	glutSwapBuffers();
 
 
@@ -99,7 +78,7 @@ void CreateScene() {
 	CreateVertexBuffer(m2);
 	world.drawMe = m1;
 	moon.drawMe = m2;
-	moon.translation = Vector3f(1, 0, 0);
+	moon.translation = Vector3f(2.0f, 0, 0);
 	world.AddChild(moon);
 }
 
