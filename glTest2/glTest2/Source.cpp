@@ -46,8 +46,9 @@ void RenderSceneCB()
 
 
 	//These are the only lines that actually belong here
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	camera.Draw(world);
+	//world.Draw(Matrix4f::Identity());
 	glutSwapBuffers();
 
 
@@ -103,13 +104,19 @@ int main(int argc, char** argv)
 {
 	//create our opengl context using glut (I think)
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+	//glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowSize(1024, 768);
 	glutInitWindowPosition(WINDOW_WIDTH, WINDOW_HEIGHT);
 	glutCreateWindow("Tutorial");
 	InitializeGlutCallbacks();
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-
+	
+	//get things rendering in the correct order
+	glEnable(GL_CULL_FACE);
+	glDepthMask(GL_TRUE);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
 
 	//initilize glew next. this flips its shit if put first
 	GLenum res = glewInit();
