@@ -33,22 +33,14 @@ void RenderSceneCB()
 	static float Scale = 0.0f;
 	Scale += 0.01f;
 	
-	//Vector3f scale(sinf(Scale * 0.1f), sinf(Scale * 0.1f), sinf(Scale * 0.1f));
 	Vector3f scale(1.0f, 1.0f, 1.0f);
 	Vector3f pos(sinf(Scale), 0.0f, 0.0f);
-	//Vector3f pos = Vector3f(0, 0, 20);
-	//Vector3f rotation(sinf(Scale) * 90.0f, sinf(Scale) * 90.0f, sinf(Scale) * 90.0f);
-	Vector3f rotation = Vector3f(0, 0, Scale * 90);
-
-	/*
-	planet.translation = Vector3f(0, 0, 20);
-	moon.translation = Vector3f(1, 0, 20);
-	*/
+	Vector3f rotation = Vector3f(0, Scale * 90, Scale * 90);
 
 	Vector3f planetParentRot = Vector3f(90, 0, 0);
 	planetParent->rotation = planetParentRot;
 	
-	planet->translation = pos;
+	//planet->translation = pos;
 	planet->rotation = rotation;
 	planet->scale = scale;
 	
