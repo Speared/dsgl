@@ -1,11 +1,12 @@
 #pragma once
+#include "Node.h"
 class Component
 {
 public:
 	Component();
 	~Component();
 	virtual void Update() {}
-private:
-
+	//Node *parentNode;
+	
 };
 
