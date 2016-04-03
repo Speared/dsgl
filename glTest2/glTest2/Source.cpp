@@ -22,7 +22,9 @@ const char* uniformName = "gWorld";
 
 //TODO: one day should be the root node in a scenegraph
 Node world;
-Node moon;
+Node* planetParent;
+Node* planet;
+Node* moon;
 Camera camera = Camera(PersProjInfo(30.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 1.0f, 10000.0f));
 
 void RenderSceneCB()
@@ -33,17 +35,23 @@ void RenderSceneCB()
 	
 	//Vector3f scale(sinf(Scale * 0.1f), sinf(Scale * 0.1f), sinf(Scale * 0.1f));
 	Vector3f scale(1.0f, 1.0f, 1.0f);
-	//Vector3f pos(sinf(Scale), 0.0f, 10.0f);
-	Vector3f pos = Vector3f(0, 0, 20);
+	Vector3f pos(sinf(Scale), 0.0f, 0.0f);
+	//Vector3f pos = Vector3f(0, 0, 20);
 	//Vector3f rotation(sinf(Scale) * 90.0f, sinf(Scale) * 90.0f, sinf(Scale) * 90.0f);
-	Vector3f rotation = Vector3f(90.0f, Scale * 90, 15);
+	Vector3f rotation = Vector3f(0, 0, Scale * 90);
 
-	world.translation = pos;
-	world.rotation = rotation;
-	world.scale = scale;
-	Matrix4f ident;
-	ident.InitIdentity();
+	/*
+	planet.translation = Vector3f(0, 0, 20);
+	moon.translation = Vector3f(1, 0, 20);
+	*/
 
+	Vector3f planetParentRot = Vector3f(90, 0, 0);
+	planetParent->rotation = planetParentRot;
+	
+	planet->translation = pos;
+	planet->rotation = rotation;
+	planet->scale = scale;
+	
 
 	//These are the only lines that actually belong here
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -79,16 +87,31 @@ void CreateIndexBuffer(Model &m)
 }
 
 void CreateScene() {
-	Model m1;
-	Model m2;
-	CreateIndexBuffer(m1);
-	CreateIndexBuffer(m2);
-	CreateVertexBuffer(m1);
-	CreateVertexBuffer(m2);
-	world.drawMe = m1;
-	moon.drawMe = m2;
-	moon.translation = Vector3f(0.0f, 10, 0.0f);
-	world.AddChild(moon);
+	//TODO: use smart pointers instead of scary normal pointers
+	planet = new Node();
+	planetParent = new Node();
+	moon = new Node();
+	Model* m1 = new Model();
+	Model* m2 = new Model();
+	m1->shaderName = shaderName;
+	m2->shaderName = shaderName;
+	m1->uniformName = uniformName;
+	m2->uniformName = uniformName;
+	CreateIndexBuffer(*m1);
+	CreateIndexBuffer(*m2);
+	CreateVertexBuffer(*m1);
+	CreateVertexBuffer(*m2);
+	planet->AddComponent(m1);
+	planetParent->translation = Vector3f(0, 0, 20);
+	moon->AddComponent(m2);
+	moon->translation = Vector3f(0.0f, 10.0f, 0.0f);
+	world.name = "world";
+	planet->name = "planet";
+	moon->name = "moon";
+
+	world.AddChild(planetParent);
+	planetParent->AddChild(planet);
+	planet->AddChild(moon);
 }
 
 void InitializeGlutCallbacks()

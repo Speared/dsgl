@@ -3,6 +3,8 @@
 #include "Model.h"
 #include "Pipeline.h"
 #include <list>
+#include "Component.h"
+#include "DrawableComponent.h"
 class Node
 {
 public:
@@ -10,20 +12,23 @@ public:
 	Vector3f rotation;
 	Vector3f scale;
 
-	//one day this should be a gameobject
-	//and the gameobject would have a model
-	//and modle would have shader
-	Model drawMe;
-	char* shaderName;
-	char* uniformName;
+	const char* name;
 
-	void AddChild(Node &newNode);
-	void RemoveChild(Node & oldNode);
+	void AddChild(Node *newNode);
+	void RemoveChild(Node *oldNode);
 	void Draw(Matrix4f parentTransform);
+
+
+	void AddComponent(DrawableComponent* newComponent);
+	void AddComponent(Component* newComponent);
+	void UpdateComponents();
+
+	std::list<Component*> components;
+	std::list<DrawableComponent*> drawable_components;
 
 	Node();
 	~Node();
 private:
-	std::list<Node> _children;
+	std::list<Node*> _children;
 	Pipeline _pipeline;
 };
