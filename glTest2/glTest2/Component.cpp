@@ -2,7 +2,6 @@
 
 Component::Component()
 {
-	
 }
 
 Component::~Component()

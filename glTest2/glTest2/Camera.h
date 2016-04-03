@@ -4,14 +4,13 @@
 class Camera
 {
 public:
-	Camera(PersProjInfo& info, Vector3f& target, Vector3f& up);
+	Camera(PersProjInfo& info);
 	~Camera();
 	void Draw(Node world);
-	
+
 private:
-	//void SetPerspectiveMatrix(PersProjInfo& info);
+	void SetPerspectiveMatrix(PersProjInfo& info);
 	Matrix4f m_perspective;
-	Matrix4f m_camera_trans;
 };
 
 

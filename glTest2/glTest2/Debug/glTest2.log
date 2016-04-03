@@ -1,62 +1,22 @@
-﻿Build started 03/04/2016 6:26:45 PM.
+﻿Build started 03/04/2016 5:37:54 PM.
      1>Project "C:\Users\David\Documents\GitHub\dsgl\glTest2\glTest2\glTest2.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp Component.cpp DrawableComponent.cpp Model.cpp Node.cpp Source.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Source.cpp
          Source.cpp
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(22): error C2061: syntax error: identifier 'DrawableComponent'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(23): error C2061: syntax error: identifier 'Component'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(23): error C2535: 'void Node::AddComponent(void)': member function already defined or declared
-         c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(22): note: see declaration of 'Node::AddComponent'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(26): error C2065: 'Component': undeclared identifier
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(26): error C2059: syntax error: '>'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(26): error C2976: 'std::list': too few template arguments
-         c:\program files (x86)\microsoft visual studio 14.0\vc\include\list(860): note: see declaration of 'std::list'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(27): error C2065: 'DrawableComponent': undeclared identifier
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(27): error C2059: syntax error: '>'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(27): error C2976: 'std::list': too few template arguments
-         c:\program files (x86)\microsoft visual studio 14.0\vc\include\list(860): note: see declaration of 'std::list'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\source.cpp(96): error C2660: 'Node::AddComponent': function does not take 1 arguments
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\source.cpp(98): error C2660: 'Node::AddComponent': function does not take 1 arguments
-         Node.cpp
-         Model.cpp
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(22): error C2061: syntax error: identifier 'DrawableComponent'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(23): error C2061: syntax error: identifier 'Component'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(23): error C2535: 'void Node::AddComponent(void)': member function already defined or declared
-         c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(22): note: see declaration of 'Node::AddComponent'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(26): error C2065: 'Component': undeclared identifier
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(26): error C2059: syntax error: '>'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(26): error C2976: 'std::list': too few template arguments
-         c:\program files (x86)\microsoft visual studio 14.0\vc\include\list(860): note: see declaration of 'std::list'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(27): error C2065: 'DrawableComponent': undeclared identifier
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(27): error C2059: syntax error: '>'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(27): error C2976: 'std::list': too few template arguments
-         c:\program files (x86)\microsoft visual studio 14.0\vc\include\list(860): note: see declaration of 'std::list'
-         DrawableComponent.cpp
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\model.h(8): error C2504: 'DrawableComponent': base class undefined
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(22): error C2061: syntax error: identifier 'DrawableComponent'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(23): error C2061: syntax error: identifier 'Component'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(23): error C2535: 'void Node::AddComponent(void)': member function already defined or declared
-         c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(22): note: see declaration of 'Node::AddComponent'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(26): error C2065: 'Component': undeclared identifier
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(26): error C2059: syntax error: '>'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(26): error C2976: 'std::list': too few template arguments
-         c:\program files (x86)\microsoft visual studio 14.0\vc\include\list(860): note: see declaration of 'std::list'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(27): error C2065: 'DrawableComponent': undeclared identifier
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(27): error C2059: syntax error: '>'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(27): error C2976: 'std::list': too few template arguments
-         c:\program files (x86)\microsoft visual studio 14.0\vc\include\list(860): note: see declaration of 'std::list'
-         Component.cpp
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\drawablecomponent.h(5): error C2504: 'Component': base class undefined
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(23): error C2061: syntax error: identifier 'Component'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(26): error C2065: 'Component': undeclared identifier
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(26): error C2059: syntax error: '>'
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\node.h(26): error C2976: 'std::list': too few template arguments
-         c:\program files (x86)\microsoft visual studio 14.0\vc\include\list(860): note: see declaration of 'std::list'
-         Camera.cpp
-     1>c:\users\david\documents\github\dsgl\gltest2\gltest2\camera.cpp : fatal error C1041: cannot open program database 'C:\Users\David\Documents\GitHub\dsgl\glTest2\glTest2\Debug\vc140.pdb'; if multiple CL.EXE write to the same .PDB file, please use /FS
-         Generating Code...
-     1>Done Building Project "C:\Users\David\Documents\GitHub\dsgl\glTest2\glTest2\glTest2.vcxproj" (Build target(s)) -- FAILED.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\David\Documents\GitHub\dsgl\glTest2\Debug\glTest2.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\GlewLibs kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib glew32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\David\Documents\GitHub\dsgl\glTest2\Debug\glTest2.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\David\Documents\GitHub\dsgl\glTest2\Debug\glTest2.lib" /MACHINE:X86 Debug\glTest2.res
+         Debug\Camera.obj
+         Debug\Component.obj
+         Debug\DrawableComponent.obj
+         Debug\math_3d.obj
+         Debug\Model.obj
+         Debug\Node.obj
+         Debug\Pipeline.obj
+         Debug\ShaderManager.obj
+         Debug\Source.obj
+         glTest2.vcxproj -> C:\Users\David\Documents\GitHub\dsgl\glTest2\Debug\glTest2.exe
+     1>Done Building Project "C:\Users\David\Documents\GitHub\dsgl\glTest2\glTest2\glTest2.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:03.72
+Time Elapsed 00:00:01.40

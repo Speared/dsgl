@@ -55,13 +55,11 @@ void Node::AddComponent(DrawableComponent* newComponent)
 {
 	drawable_components.push_back(newComponent);
 	components.push_back(newComponent);
-	//newComponent->parentNode = this;
 }
 
 void Node::AddComponent(Component* newComponent)
 {
 	components.push_back(newComponent);
-	//newComponent->parentNode = this;
 }
 
 void Node::UpdateComponents()

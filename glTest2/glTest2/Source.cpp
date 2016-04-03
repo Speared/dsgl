@@ -25,7 +25,7 @@ Node world;
 Node* planetParent;
 Node* planet;
 Node* moon;
-Camera camera = Camera(PersProjInfo(30.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 1.0f, 10000.0f), Vector3f(0,0,1), Vector3f(0, 1.0f, 0));
+Camera camera = Camera(PersProjInfo(30.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 1.0f, 10000.0f));
 
 void RenderSceneCB()
 {
@@ -40,7 +40,7 @@ void RenderSceneCB()
 	Vector3f planetParentRot = Vector3f(90, 0, 0);
 	planetParent->rotation = planetParentRot;
 	
-	planet->translation = pos;
+	//planet->translation = pos;
 	planet->rotation = rotation;
 	planet->scale = scale;
 	

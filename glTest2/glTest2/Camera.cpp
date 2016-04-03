@@ -1,10 +1,8 @@
 #include "Camera.h"
 
-Camera::Camera(PersProjInfo& info, Vector3f& target, Vector3f& up)
+Camera::Camera(PersProjInfo& info)
 {
-	//SetPerspectiveMatrix(info);
-	m_perspective.InitPersProjTransform(info);
-	m_camera_trans.InitCameraTransform(target, up);
+	SetPerspectiveMatrix(info);
 }
 
 Camera::~Camera()
@@ -14,10 +12,10 @@ Camera::~Camera()
 void Camera::Draw(Node world)
 {
 	//draws the given node with our perspective as the parent transform
-	world.Draw(m_perspective * m_camera_trans);
+	world.Draw(m_perspective);
 	//world.Draw(Matrix4f::Identity());
 }
-/*
+
 //many thanks to Etay Meiri for the majority of this function
 void Camera::SetPerspectiveMatrix(PersProjInfo& info)
 {
@@ -47,4 +45,3 @@ void Camera::SetPerspectiveMatrix(PersProjInfo& info)
 	m_perspective.m[3][2] = 1.0f;
 	m_perspective.m[3][3] = 0.0f;
 }
-*/
