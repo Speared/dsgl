@@ -3,8 +3,8 @@
 #include <gl\glut.h>
 #include "math_3d.h"
 #include "ShaderManager.h"
-#include "DrawableComponent.h"
-class Model : public DrawableComponent
+#include "Component.h"
+class Model : public Component
 {
 public:
 	Model();

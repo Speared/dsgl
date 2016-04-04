@@ -4,10 +4,12 @@
 
 Node::Node()
 {
+	parent = 0;
 	translation = Vector3f(0.0f);
 	rotation = Vector3f(0.0f);
 	scale = Vector3f(1.0f);
 	_pipeline = Pipeline();
+	UpdateTransform(Matrix4f::Identity());
 }
 
 Node::~Node()
@@ -19,27 +21,16 @@ Model drawMe;
 std::list<Node> _children;
 
 void Node::AddChild(Node *newNode) {
+	newNode->parent = this;
 	_children.push_front(newNode);
 }
 void Node::RemoveChild(Node *oldNode) {
 	//_children.remove(oldNode);
 }
 void Node::Draw(Matrix4f parentTransform) {
-	
-	const char* myname = name;
+	UpdateTransform(parentTransform);
 
-	_pipeline.SetParentTrans(parentTransform);
-	_pipeline.SetPosition(translation);
-	_pipeline.SetRotation(rotation);
-	_pipeline.SetScale(scale);
-	//GLuint VBO;
-	//GLuint IBO;
-	//drawMe.GetBuffers(VBO, IBO);
-	//_pipeline.Draw(VBO, IBO);
-	
-	Matrix4f transform = _pipeline.GetTransform();
-
-	for (std::list<DrawableComponent*>::iterator iter = drawable_components.begin(); iter != drawable_components.end(); iter++) {
+	for (std::list<Component*>::iterator iter = components.begin(); iter != components.end(); iter++) {
 		(*iter)->Draw(transform);
 	}
 
@@ -51,22 +42,31 @@ void Node::Draw(Matrix4f parentTransform) {
 	}
 }
 
-void Node::AddComponent(DrawableComponent* newComponent)
-{
-	drawable_components.push_back(newComponent);
-	components.push_back(newComponent);
-	newComponent->myNode = this;
-}
-
 void Node::AddComponent(Component* newComponent)
 {
 	components.push_back(newComponent);
 	newComponent->myNode = this; 
 }
 
-void Node::UpdateComponents()
+void Node::Update(Matrix4f parentTransform)
 {
+	UpdateTransform(parentTransform);
+
 	for (std::list<Component*>::iterator iter = components.begin(); iter != components.end(); iter++) {
 		(*iter)->Update();
 	}
+
+	std::list<Node*>::iterator iter;
+	for (iter = _children.begin(); iter != _children.end(); ++iter) {
+		(*iter)->Update(transform);
+	}
+}
+
+void Node::UpdateTransform(Matrix4f parentTransform)
+{
+	_pipeline.SetParentTrans(parentTransform);
+	_pipeline.SetPosition(translation);
+	_pipeline.SetRotation(rotation);
+	_pipeline.SetScale(scale);
+	transform = _pipeline.GetTransform();
 }

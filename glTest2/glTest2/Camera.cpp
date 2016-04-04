@@ -2,20 +2,29 @@
 
 Camera::Camera(PersProjInfo& info)
 {
-	SetPerspectiveMatrix(info);
+	m_perspective.InitPersProjTransform(info);
 }
 
 Camera::~Camera()
 {
 }
 
+void Camera::Update() 
+{
+	Matrix4f parentTrans = myNode->GetTransform();
+	Draw(SceneGraph::root);
+}
+
 void Camera::Draw(Node world)
 {
 	//draws the given node with our perspective as the parent transform
-	world.Draw(m_perspective);
+	Matrix4f myTrans = myNode->GetTransform();
+	world.Draw(m_perspective * myTrans);
+	//world.Draw(m_perspective);
+
 	//world.Draw(Matrix4f::Identity());
 }
-
+/*
 //many thanks to Etay Meiri for the majority of this function
 void Camera::SetPerspectiveMatrix(PersProjInfo& info)
 {
@@ -45,3 +54,4 @@ void Camera::SetPerspectiveMatrix(PersProjInfo& info)
 	m_perspective.m[3][2] = 1.0f;
 	m_perspective.m[3][3] = 0.0f;
 }
+*/

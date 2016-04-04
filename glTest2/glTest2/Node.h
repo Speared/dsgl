@@ -4,7 +4,6 @@
 #include "Pipeline.h"
 #include <list>
 #include "Component.h"
-#include "DrawableComponent.h"
 class Node
 {
 public:
@@ -13,22 +12,26 @@ public:
 	Vector3f scale;
 
 	const char* name;
+	Node* parent;
 
 	void AddChild(Node *newNode);
 	void RemoveChild(Node *oldNode);
 	void Draw(Matrix4f parentTransform);
+	void Update(Matrix4f parentTransform);
 
-
-	void AddComponent(DrawableComponent* newComponent);
 	void AddComponent(Component* newComponent);
-	void UpdateComponents();
 
 	std::list<Component*> components;
-	std::list<DrawableComponent*> drawable_components;
+
+	Matrix4f GetTransform() {
+		return transform;
+	}
 
 	Node();
 	~Node();
 private:
+	void UpdateTransform(Matrix4f parentTransform);
+	Matrix4f transform;
 	std::list<Node*> _children;
 	Pipeline _pipeline;
 };

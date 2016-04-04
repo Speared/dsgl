@@ -1,15 +1,16 @@
 #pragma once
 #include "math_3d.h"
 #include "Node.h"
-class Camera
+#include "SceneGraph.h"
+class Camera : public Component
 {
 public:
 	Camera(PersProjInfo& info);
 	~Camera();
+	void Update();
 	void Draw(Node world);
 
 private:
-	void SetPerspectiveMatrix(PersProjInfo& info);
 	Matrix4f m_perspective;
 };
 

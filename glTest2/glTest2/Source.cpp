@@ -11,7 +11,7 @@
 #include "Pipeline.h"
 #include "Node.h"
 #include "Camera.h"
-
+#include "SceneGraph.h"
 #define WINDOW_WIDTH 100
 #define WINDOW_HEIGHT 100
 
@@ -21,11 +21,11 @@ const char* shaderName = "translation shader";
 const char* uniformName = "gWorld";
 
 //TODO: one day should be the root node in a scenegraph
-Node world;
 Node* planetParent;
 Node* planet;
 Node* moon;
-Camera camera = Camera(PersProjInfo(30.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 1.0f, 10000.0f));
+Node* cameraNode;
+Camera* camera;
 
 void RenderSceneCB()
 {
@@ -43,11 +43,12 @@ void RenderSceneCB()
 	//planet->translation = pos;
 	planet->rotation = rotation;
 	planet->scale = scale;
-	
+	moon->rotation = rotation;
 
 	//These are the only lines that actually belong here
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	camera.Draw(world);
+	//camera.Draw(world);
+	SceneGraph::root.Update(Matrix4f::Identity());
 	//world.Draw(Matrix4f::Identity());
 	glutSwapBuffers();
 
@@ -79,6 +80,10 @@ void CreateIndexBuffer(Model &m)
 }
 
 void CreateScene() {
+
+	camera = new Camera(PersProjInfo(30.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 1.0f, 10000.0f));
+	SceneGraph::Init();
+
 	//TODO: use smart pointers instead of scary normal pointers
 	planet = new Node();
 	planetParent = new Node();
@@ -97,11 +102,15 @@ void CreateScene() {
 	planetParent->translation = Vector3f(0, 0, 20);
 	moon->AddComponent(m2);
 	moon->translation = Vector3f(0.0f, 10.0f, 0.0f);
-	world.name = "world";
+	//world.name = "world";
 	planet->name = "planet";
 	moon->name = "moon";
 
-	world.AddChild(planetParent);
+	//world.AddChild(planetParent);
+	SceneGraph::root.AddChild(planetParent);
+	SceneGraph::root.AddComponent(camera);
+	//planetParent->AddComponent(camera);
+
 	planetParent->AddChild(planet);
 	planet->AddChild(moon);
 }
