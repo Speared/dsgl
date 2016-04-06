@@ -17,12 +17,15 @@ void Camera::Update()
 
 void Camera::Draw(Node world)
 {
+	//testing doing this closer to the way the tutorial wanted
+	Matrix4f rotationTrans;
+	rotationTrans.InitCameraTransform(myNode->forward, myNode->up);
+
 	//draws the given node with our perspective as the parent transform
 	Matrix4f myTrans = myNode->GetTransform();
-	world.Draw(m_perspective * myTrans);
+	world.Draw(m_perspective * rotationTrans /** myTrans.GetTranslationMatrix()*/);
 	//world.Draw(m_perspective);
 
-	//world.Draw(Matrix4f::Identity());
 }
 /*
 //many thanks to Etay Meiri for the majority of this function

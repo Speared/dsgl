@@ -69,4 +69,14 @@ void Node::UpdateTransform(Matrix4f parentTransform)
 	_pipeline.SetRotation(rotation);
 	_pipeline.SetScale(scale);
 	transform = _pipeline.GetTransform();
+	
+	up = (transform * Vector3f(0, 1, 0)).Normalize();
+	forward = (transform * Vector3f(0, 0, 1)).Normalize();
+	right = (transform * Vector3f(1, 0, 0)).Normalize();
+	
+	/*
+	up = (Vector3f(0, -1, 0)).Normalize();
+	forward = (Vector3f(0, 0, -1)).Normalize();
+	right = (Vector3f(-1, 0, 0)).Normalize();
+	*/
 }

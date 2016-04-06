@@ -27,6 +27,10 @@ public:
 		return transform;
 	}
 
+	Vector3f forward;
+	Vector3f up;
+	Vector3f right;
+
 	Node();
 	~Node();
 private:

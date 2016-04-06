@@ -12,6 +12,7 @@
 #include "Node.h"
 #include "Camera.h"
 #include "SceneGraph.h"
+#include "FirstPersonControl.h"
 #define WINDOW_WIDTH 100
 #define WINDOW_HEIGHT 100
 
@@ -25,7 +26,9 @@ Node* planetParent;
 Node* planet;
 Node* moon;
 Node* cameraNode;
+Node* test;
 Camera* camera;
+FirstPersonControl* cameraControls;
 
 void RenderSceneCB()
 {
@@ -88,16 +91,26 @@ void CreateScene() {
 	planet = new Node();
 	planetParent = new Node();
 	moon = new Node();
+	cameraNode = new Node();
+	test = new Node();
+
+	cameraControls = new FirstPersonControl();
+
 	Model* m1 = new Model();
 	Model* m2 = new Model();
+	Model* m3 = new Model();
 	m1->shaderName = shaderName;
 	m2->shaderName = shaderName;
+	m3->shaderName = shaderName;
 	m1->uniformName = uniformName;
 	m2->uniformName = uniformName;
+	m3->uniformName = uniformName;
 	CreateIndexBuffer(*m1);
 	CreateIndexBuffer(*m2);
+	CreateIndexBuffer(*m3);
 	CreateVertexBuffer(*m1);
 	CreateVertexBuffer(*m2);
+	CreateVertexBuffer(*m3);
 	planet->AddComponent(m1);
 	planetParent->translation = Vector3f(0, 0, 20);
 	moon->AddComponent(m2);
@@ -105,11 +118,18 @@ void CreateScene() {
 	//world.name = "world";
 	planet->name = "planet";
 	moon->name = "moon";
-
-	//world.AddChild(planetParent);
+	cameraNode->rotation = Vector3f(0, 0, 0);
+	cameraNode->translation = Vector3f(0, 0, 0);
+	cameraNode->AddComponent(camera);
+	//cameraNode->AddComponent(cameraControls);
+	//for now to debug we have a third person camera and this triange as the 'player'
+	//test->AddComponent(m3);
+	cameraNode->AddComponent(m3);
+	cameraNode->AddComponent(cameraControls);
+	SceneGraph::root.AddChild(cameraNode);
 	SceneGraph::root.AddChild(planetParent);
-	SceneGraph::root.AddComponent(camera);
-	//planetParent->AddComponent(camera);
+	SceneGraph::root.AddChild(test);
+
 
 	planetParent->AddChild(planet);
 	planet->AddChild(moon);
