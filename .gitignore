@@ -1,0 +1,41 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Other things the internet advises against
+*.log
+*.tlog
+*.aps
+*.exe
+*.idb
+*.ipch
+*lastbuildstate
+*.pdb
+*.res
+*.sdf
+*.suo
