@@ -118,14 +118,12 @@ void CreateScene() {
 	//world.name = "world";
 	planet->name = "planet";
 	moon->name = "moon";
-	cameraNode->rotation = Vector3f(0, 0, 0);
-	cameraNode->translation = Vector3f(0, 0, 0);
-	cameraNode->AddComponent(camera);
-	//cameraNode->AddComponent(cameraControls);
+
 	//for now to debug we have a third person camera and this triange as the 'player'
-	test->AddComponent(m3);
-	//cameraNode->AddComponent(m3);
+	cameraNode->AddComponent(m3);
 	cameraNode->AddComponent(cameraControls);
+	cameraNode->AddComponent(camera);
+
 	SceneGraph::root.AddChild(cameraNode);
 	SceneGraph::root.AddChild(planetParent);
 	SceneGraph::root.AddChild(test);

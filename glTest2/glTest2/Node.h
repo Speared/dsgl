@@ -30,6 +30,7 @@ public:
 	Vector3f forward;
 	Vector3f up;
 	Vector3f right;
+	Vector3f worldPos;
 
 	Node();
 	~Node();

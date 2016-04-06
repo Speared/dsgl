@@ -58,6 +58,8 @@ struct Vector2f
 	}
 };
 
+//let vector3 know about matrix's existance, so I can translate/scale one by the other
+class Matrix4f;
 
 struct Vector3f
 {
@@ -128,7 +130,11 @@ struct Vector3f
 	Vector3f& Normalize();
 
 	void Rotate(float Angle, const Vector3f& Axis);
+	
+	Vector3f RotateBy(const Matrix4f& m) const;
 
+	Vector3f TranslateBy(const Matrix4f& m) const;
+	
 	void Print() const
 	{
 		printf("(%.02f, %.02f, %.02f)", x, y, z);
@@ -340,30 +346,6 @@ public:
 		r.z = m[2][0] * v.x + m[2][1] * v.y + m[2][2] * v.z + m[2][3] * v.w;
 		r.w = m[3][0] * v.x + m[3][1] * v.y + m[3][2] * v.z + m[3][3] * v.w;
 
-		return r;
-	}
-
-	//the internet tells me a vector 3 by matrix is the same as vector 4
-	//just pretend the w component of the vector is a 1
-	Vector3f operator*(const Vector3f& v) const
-	{
-		Vector3f r;
-
-		r.x = m[0][0] * v.x + m[0][1] * v.y + m[0][2] * v.z + m[0][3] * 0;
-		r.y = m[1][0] * v.x + m[1][1] * v.y + m[1][2] * v.z + m[1][3] * 0;
-		r.z = m[2][0] * v.x + m[2][1] * v.y + m[2][2] * v.z + m[2][3] * 0;
-		//r.w = m[3][0] * v.x + m[3][1] * v.y + m[3][2] * v.z + m[3][3] * v.w;
-
-		return r;
-	}
-
-	//return only the translation component of the matrix
-	Matrix4f GetTranslationMatrix() {
-		Matrix4f r;
-		r.InitIdentity();
-		for (unsigned int i = 0; i < 4; i++) {
-			r.m[i][3] = m[i][3];
-		}
 		return r;
 	}
 

@@ -15,12 +15,14 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
+/*
+Some functions added by David Speare
+*/
 #include <stdlib.h>
 #include <assert.h>
 #include <random>
-//#include "ogldev_util.h"
 #include "math_3d.h"
+
 
 Vector3f Vector3f::Cross(const Vector3f& v) const
 {
@@ -62,6 +64,28 @@ void Vector3f::Rotate(float Angle, const Vector3f& Axe)
 	z = W.z;
 }
 
+Vector3f Vector3f::RotateBy(const Matrix4f& m) const
+{
+	
+	Vector3f r;
+	
+	r.x = m.m[0][0] * x + m.m[0][1] * y + m.m[0][2] * z;
+	r.y = m.m[1][0] * x + m.m[1][1] * y + m.m[1][2] * z;
+	r.z = m.m[2][0] * x + m.m[2][1] * y + m.m[2][2] * z;
+	
+	return r;
+}
+
+Vector3f Vector3f::TranslateBy(const Matrix4f& m) const
+{
+	Vector3f r;
+	
+	r.x = m.m[0][0] * x + m.m[0][1] * y + m.m[0][2] * z + m.m[0][3];
+	r.y = m.m[1][0] * x + m.m[1][1] * y + m.m[1][2] * z + m.m[1][3];
+	r.z = m.m[2][0] * x + m.m[2][1] * y + m.m[2][2] * z + m.m[2][3];
+	
+	return r;
+}
 
 void Matrix4f::InitScaleTransform(float ScaleX, float ScaleY, float ScaleZ)
 {
