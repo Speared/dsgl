@@ -123,8 +123,8 @@ void CreateScene() {
 	cameraNode->AddComponent(camera);
 	//cameraNode->AddComponent(cameraControls);
 	//for now to debug we have a third person camera and this triange as the 'player'
-	//test->AddComponent(m3);
-	cameraNode->AddComponent(m3);
+	test->AddComponent(m3);
+	//cameraNode->AddComponent(m3);
 	cameraNode->AddComponent(cameraControls);
 	SceneGraph::root.AddChild(cameraNode);
 	SceneGraph::root.AddChild(planetParent);
