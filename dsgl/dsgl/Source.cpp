@@ -5,6 +5,7 @@
 #include <fstream>
 #include <vector>
 #include <assert.h>
+#include <thread>
 #include "math_3d.h"
 #include "ShaderManager.h"
 #include "Model.h"
@@ -52,6 +53,7 @@ void RenderSceneCB()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//camera.Draw(world);
 	SceneGraph::root.Update(Matrix4f::Identity());
+	Camera::DrawAllCameras();
 	//world.Draw(Matrix4f::Identity());
 	glutSwapBuffers();
 

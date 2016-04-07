@@ -1,18 +1,34 @@
 #include "Camera.h"
+std::list<Camera*> Camera::ActiveCameras;
+
+void Camera::DrawAllCameras(Node node) {
+	std::list<Camera*>::iterator iter = ActiveCameras.begin();
+	for (; iter != ActiveCameras.end(); iter++) {
+		(*iter)->Draw(node);
+	}
+}
+
+void Camera::DrawAllCameras() {
+	std::list<Camera*>::iterator iter = ActiveCameras.begin();
+	for (; iter != ActiveCameras.end(); iter++) {
+		(*iter)->Draw(SceneGraph::root);
+	}
+}
 
 Camera::Camera(PersProjInfo& info)
 {
 	m_perspective.InitPersProjTransform(info);
+	ActiveCameras.push_front(this);
 }
 
 Camera::~Camera()
 {
+	ActiveCameras.remove(this);
 }
 
 void Camera::Update() 
 {
-	Matrix4f parentTrans = myNode->GetTransform();
-	Draw(SceneGraph::root);
+	//Draw(SceneGraph::root);
 }
 
 void Camera::Draw(Node world)
