@@ -8,6 +8,8 @@ struct Vertex
 {
 	Vector3f position;
 	Vector2f textureCoordinate;
+	Vertex(Vector3f position, Vector2f textureCoordinate) :
+		position(position), textureCoordinate(textureCoordinate) {}
 };
 
 class Model : public Component
@@ -18,7 +20,7 @@ public:
 
 	//one day these functions should be private, and there should be a function that takes in a modle instead
 	void CreateIndexBuffer(unsigned int indices[], GLsizeiptr sizeofIndices);
-	void CreateVertexBuffer(Vector3f vertices[], GLsizeiptr sizeofVertices);
+	void CreateVertexBuffer(Vertex vertices[], GLsizeiptr sizeofVertices);
 	void GetBuffers(GLuint& vbo, GLuint& ibo);
 	void Draw(Matrix4f transform);
 	

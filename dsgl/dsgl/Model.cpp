@@ -17,7 +17,7 @@ void Model::CreateIndexBuffer(unsigned int indices[], GLsizeiptr sizeofIndices)
 	
 }
 
-void Model::CreateVertexBuffer(Vector3f vertices[], GLsizeiptr sizeofVertices)
+void Model::CreateVertexBuffer(Vertex vertices[], GLsizeiptr sizeofVertices)
 {
 	
 	glGenBuffers(1, &VBO);
@@ -36,12 +36,14 @@ void Model::Draw(Matrix4f transform)
 {
 	//one day this needs to be more flexible to allow for many types of shaders
 	glUniformMatrix4fv(ShaderManager::GetShaderUniform(shaderName, uniformName), 1, GL_TRUE, (const GLfloat*)transform);
-	//Matrix4f m = Matrix4f::Identity();
-	//glUniformMatrix4fv(ShaderManager::GetShaderUniform(shaderName, uniformName), 1, GL_TRUE, (const GLfloat*)m);
 	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	//two attrib pointers now, one for vertecies and one for texture coordinates
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)12);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
 	glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
 	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 }

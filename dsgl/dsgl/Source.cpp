@@ -36,7 +36,7 @@ void RenderSceneCB()
 {
 	//scale our triangle up and down, maybe this should not be in the render function
 	static float Scale = 0.0f;
-	Scale += 0.01f;
+	Scale += 0.001f;
 	
 	Vector3f scale(1.0f, 1.0f, 1.0f);
 	Vector3f pos(sinf(Scale), 0.0f, 0.0f);
@@ -63,12 +63,10 @@ void RenderSceneCB()
 
 void CreateVertexBuffer(Model &m)
 {
-	Vector3f Vertices[4];
-
-	Vertices[0] = Vector3f(-1.0f, -1.0f, 0.0f);
-	Vertices[1] = Vector3f(0.0f, -1.0f, 1.0f);
-	Vertices[2] = Vector3f(1.0f, -1.0f, 0.0f);
-	Vertices[3] = Vector3f(0.0f, 1.0f, 0.0f);
+	Vertex Vertices[4] = { Vertex(Vector3f(-1.0f, -1.0f, 0.5773f), Vector2f(0.0f, 0.0f)),
+		Vertex(Vector3f(0.0f, -1.0f, -1.15475f), Vector2f(0.5f, 0.0f)),
+		Vertex(Vector3f(1.0f, -1.0f, 0.5773f),  Vector2f(1.0f, 0.0f)),
+		Vertex(Vector3f(0.0f, 1.0f, 0.0f),      Vector2f(0.5f, 1.0f)) };
 
 	m.CreateVertexBuffer(Vertices, sizeof(Vertices));
 
@@ -87,7 +85,7 @@ void CreateIndexBuffer(Model &m)
 
 void CreateScene() {
 
-	Texture::Load("testTexture", GL_TEXTURE_2D, "test.png");
+	Texture::Load("testTexture", GL_TEXTURE_2D, "texture.png");
 	Texture::Bind("testTexture");
 
 	camera = new Camera(PersProjInfo(30.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 1.0f, 10000.0f));
