@@ -123,6 +123,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="FirstPersonControl.h" />
+    <ClInclude Include="LodePNG.h" />
     <ClInclude Include="math_3d.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Node.h" />
@@ -130,11 +131,14 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="SceneGraph.h" />
     <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="FirstPersonControl.cpp" />
+    <ClCompile Include="LodePNG.cpp" />
     <ClCompile Include="math_3d.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Node.cpp" />
@@ -142,6 +146,7 @@
     <ClCompile Include="SceneGraph.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

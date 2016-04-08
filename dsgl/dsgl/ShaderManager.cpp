@@ -1,5 +1,5 @@
 #include "ShaderManager.h"
-
+#include "Utilities.h"
 std::map<const char*, ShaderInfo> ShaderManager::compiledShaders;
 
 ShaderManager::ShaderManager(){}
@@ -53,13 +53,15 @@ GLuint ShaderManager::CompileShader(std::vector<const char*> filenames, std::vec
 	for (unsigned int i = 0; i < filenames.size(); i++) {
 		//open our shader program text file
 		//https://www.reddit.com/r/learnprogramming/comments/3qotqr/how_can_i_read_an_entire_text_file_into_a_string/
+		/*
 		std::ifstream infile{ filenames[i] };
 		if (!infile) {
 			fprintf(stderr, "could not open shader %s\n", filenames[i]);
 			return 0;
 		}
 		std::string fileContents{ std::istreambuf_iterator<char>(infile), std::istreambuf_iterator<char>() };
-
+		*/
+		std::string fileContents = LoadFile(filenames[i]);
 		//add the shaders to the shader program
 		AddShader(ShaderProgram, fileContents.c_str(), shaderTypes[i]);
 	}

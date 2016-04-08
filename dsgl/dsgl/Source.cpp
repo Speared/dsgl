@@ -14,6 +14,7 @@
 #include "Camera.h"
 #include "SceneGraph.h"
 #include "FirstPersonControl.h"
+#include "Texture.h"
 #define WINDOW_WIDTH 100
 #define WINDOW_HEIGHT 100
 
@@ -85,6 +86,9 @@ void CreateIndexBuffer(Model &m)
 }
 
 void CreateScene() {
+
+	Texture::Load("testTexture", GL_TEXTURE_2D, "test.png");
+	Texture::Bind("testTexture");
 
 	camera = new Camera(PersProjInfo(30.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 1.0f, 10000.0f));
 	SceneGraph::Init();

@@ -4,6 +4,12 @@
 #include "math_3d.h"
 #include "ShaderManager.h"
 #include "Component.h"
+struct Vertex
+{
+	Vector3f position;
+	Vector2f textureCoordinate;
+};
+
 class Model : public Component
 {
 public:

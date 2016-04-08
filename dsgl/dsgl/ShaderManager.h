@@ -2,7 +2,6 @@
 #include <gl\glut.h>
 #include <stdio.h>
 #include <string>
-#include <fstream>
 #include <vector>
 #include <map>
 #include <assert.h>
