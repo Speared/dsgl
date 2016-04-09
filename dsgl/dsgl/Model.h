@@ -27,6 +27,7 @@ public:
 	//TODO: better system for this
 	const char* shaderName;
 	const char* uniformName;
+	const char* textureName;
 private:
 	GLuint VBO;
 	GLuint IBO;

@@ -85,8 +85,8 @@ void CreateIndexBuffer(Model &m)
 
 void CreateScene() {
 
-	Texture::Load("testTexture", GL_TEXTURE_2D, "texture.png");
-	Texture::Bind("testTexture");
+	Texture::Load("animuTexture", GL_TEXTURE_2D, "texture.png");
+	Texture::Load("testTexture", GL_TEXTURE_2D, "test.png");
 
 	camera = new Camera(PersProjInfo(30.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 1.0f, 10000.0f));
 	SceneGraph::Init();
@@ -102,19 +102,22 @@ void CreateScene() {
 
 	Model* m1 = new Model();
 	Model* m2 = new Model();
-	Model* m3 = new Model();
+	//Model* m3 = new Model();
+	m1->textureName = "animuTexture";
+	m2->textureName = "testTexture";
+	//m3->textureName = "testTexture";
 	m1->shaderName = shaderName;
 	m2->shaderName = shaderName;
-	m3->shaderName = shaderName;
+	//m3->shaderName = shaderName;
 	m1->uniformName = uniformName;
 	m2->uniformName = uniformName;
-	m3->uniformName = uniformName;
+	//m3->uniformName = uniformName;
 	CreateIndexBuffer(*m1);
 	CreateIndexBuffer(*m2);
-	CreateIndexBuffer(*m3);
+	//CreateIndexBuffer(*m3);
 	CreateVertexBuffer(*m1);
 	CreateVertexBuffer(*m2);
-	CreateVertexBuffer(*m3);
+	//CreateVertexBuffer(*m3);
 	planet->AddComponent(m1);
 	planetParent->translation = Vector3f(0, 0, 20);
 	moon->AddComponent(m2);
@@ -124,7 +127,7 @@ void CreateScene() {
 	moon->name = "moon";
 
 	//for now to debug we have a third person camera and this triange as the 'player'
-	cameraNode->AddComponent(m3);
+	//cameraNode->AddComponent(m3);
 	cameraNode->AddComponent(cameraControls);
 	cameraNode->AddComponent(camera);
 

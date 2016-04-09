@@ -35,10 +35,14 @@ void Texture::Load(const char* Name, GLenum TextureTarget, const char* Filename)
 }
 void Texture::Bind(const char* Name)
 {
-	TextureInfo bindMe = LoadedTextures[Name];
-	//this is just a test, right now only one texture is suported
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(bindMe.TextureTarget, bindMe.glTexture);
+	auto texture = LoadedTextures.find(Name);
+	if (texture == LoadedTextures.end()) {
+		fprintf(stderr, "Could not find texture while binding: %s\n", Name);
+	}else {
+		//right now only one texture at a time is suported
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(texture->second.TextureTarget, texture->second.glTexture);
+	}
 }
 
 Texture::Texture()
