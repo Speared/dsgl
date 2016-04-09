@@ -117,7 +117,19 @@ void ShaderManager::UseShader(const char* shaderName)
 
 GLuint ShaderManager::GetShaderUniform(const char* shaderName, const char* uniformName)
 {
-	return compiledShaders[shaderName].Uniforms[uniformName];
+	
+	auto shader = compiledShaders.find(shaderName);
+	if (shader == compiledShaders.end()) {
+		fprintf(stderr, "could not find compiled shader: %s\n", shaderName);
+	} else {
+		auto uniform = shader->second.Uniforms.find(uniformName);
+		if (uniform == shader->second.Uniforms.end()) {
+			fprintf(stderr, "could not find uniform: %s in shader: %s\n", uniformName, shaderName);
+		} else {
+			return uniform->second;
+		}
+	}
+
 }
 
 void ShaderManager::MakeShaderWithUniforms(const char* shaderName, std::vector<const char*> filenames, std::vector<GLenum> shaderTypes, std::vector<const char*> uniformNames)
