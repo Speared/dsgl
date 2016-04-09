@@ -35,6 +35,7 @@ void Model::GetBuffers(GLuint& vbo, GLuint& ibo)
 void Model::Draw(Matrix4f transform) 
 {
 	Texture::Bind(textureName);
+	ShaderManager::UseShader(shaderName);
 	//one day this needs to be more flexible to allow for many types of shaders
 	glUniformMatrix4fv(ShaderManager::GetShaderUniform(shaderName, uniformName), 1, GL_TRUE, (const GLfloat*)transform);
 	glEnableVertexAttribArray(0);

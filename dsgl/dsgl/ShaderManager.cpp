@@ -107,7 +107,12 @@ std::map<const char*, GLuint> ShaderManager::GetUniforms(GLuint ShaderProgram, s
 
 void ShaderManager::UseShader(const char* shaderName)
 {
-	glUseProgram(compiledShaders[shaderName].ShaderProgram);
+	auto shader = compiledShaders.find(shaderName);
+	if (shader == compiledShaders.end()) {
+		fprintf(stderr, "could not find compiled shader: %s\n", shaderName);
+	} else {
+		glUseProgram(shader->second.ShaderProgram);
+	}
 }
 
 GLuint ShaderManager::GetShaderUniform(const char* shaderName, const char* uniformName)

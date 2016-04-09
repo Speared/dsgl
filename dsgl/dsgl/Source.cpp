@@ -190,7 +190,7 @@ int main(int argc, char** argv)
 	//tell opengl to use our new shader for every draw call
 	//this still totally shouldn't be in main
 	ShaderManager::MakeShaderWithUniforms(shaderName, filenames, shaderTypes, uniforms);
-	ShaderManager::UseShader(shaderName);
+	
 
 	//run the main loop we set up
 	glutMainLoop();
