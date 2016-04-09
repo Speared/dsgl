@@ -1,4 +1,7 @@
 #pragma once
+//note to self: I never did the last bit of this tutorial
+//http://ogldev.atspace.co.uk/www/tutorial16/tutorial16.html
+//there's a chance this is still done totally wrong, dispite working
 #include <gl\glew.h>
 #include <gl\glut.h>
 #include "math_3d.h"

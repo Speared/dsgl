@@ -162,6 +162,8 @@ int main(int argc, char** argv)
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	
 	//get things rendering in the correct order
+	glFrontFace(GL_CW);
+	glCullFace(GL_BACK);
 	glEnable(GL_CULL_FACE);
 	glDepthMask(GL_TRUE);
 	glEnable(GL_DEPTH_TEST);
