@@ -48,22 +48,6 @@ void Pipeline::CalculateTransform() {
 	}
 }
 
-void Pipeline::Draw(GLuint &VBO, GLuint &IBO)
-{
-	CalculateTransform();
-	//one day this needs to be more flexible to allow for many types of shaders
-	glUniformMatrix4fv(ShaderManager::GetShaderUniform(shaderName, uniformName), 1, GL_TRUE, (const GLfloat*)m_transformation);
-	//Matrix4f m = Matrix4f::Identity();
-	//glUniformMatrix4fv(ShaderManager::GetShaderUniform(shaderName, uniformName), 1, GL_TRUE, (const GLfloat*)m);
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-	glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
-	glDisableVertexAttribArray(0);
-}
-
-
 Matrix4f Pipeline::GetTransform()
 {
 	CalculateTransform();

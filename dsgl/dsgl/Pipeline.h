@@ -18,7 +18,6 @@ public:
 	void SetPosition(Vector3f position);
 	void SetRotation(Vector3f rotation);
 	void SetParentTrans(Matrix4f parentTrans);
-	void Draw(GLuint &VBO, GLuint &IBO);
 	Matrix4f GetTransform();
 private:
 	Matrix4f m_transformation;
