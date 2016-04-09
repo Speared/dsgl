@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include <assert.h>
+#include <list>
 #pragma once
 struct ShaderInfo
 {
@@ -23,6 +24,7 @@ public:
 	static GLuint ShaderManager::GetShaderUniform(const char* shaderName, const char* uniformName);
 
 private:
+	static std::list<GLuint> m_shader_obj_list;
 	static std::map<const char*, ShaderInfo> compiledShaders;
 
 	//attaches a shader to opengl

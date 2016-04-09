@@ -1,6 +1,7 @@
 #include "ShaderManager.h"
 #include "Utilities.h"
 std::map<const char*, ShaderInfo> ShaderManager::compiledShaders;
+std::list<GLuint> ShaderManager::m_shader_obj_list;
 
 ShaderManager::ShaderManager(){}
 
@@ -15,14 +16,20 @@ void ShaderManager::AddShader(GLuint ShaderProgram, const char* pShaderText, GLe
 		exit(0);
 	}
 
+	//save this temp shader object for later deletion
+	m_shader_obj_list.push_back(ShaderObj);
+
 	//compile our shader program, heald in a single character array
 	//in theory this could be an array of arrays getting slapped together into this program
 	const GLchar* p[1];
 	p[0] = pShaderText;
 	GLint Lenghts[1];
 	Lenghts[0] = strlen(pShaderText);
+
 	glShaderSource(ShaderObj, 1, p, Lenghts);
+	
 	glCompileShader(ShaderObj);
+	
 	//now check for shader compilation errors
 	GLint success;
 	glGetShaderiv(ShaderObj, GL_COMPILE_STATUS, &success);
@@ -51,16 +58,6 @@ GLuint ShaderManager::CompileShader(std::vector<const char*> filenames, std::vec
 
 	//loop over the filenames and shader types passed in as arguments
 	for (unsigned int i = 0; i < filenames.size(); i++) {
-		//open our shader program text file
-		//https://www.reddit.com/r/learnprogramming/comments/3qotqr/how_can_i_read_an_entire_text_file_into_a_string/
-		/*
-		std::ifstream infile{ filenames[i] };
-		if (!infile) {
-			fprintf(stderr, "could not open shader %s\n", filenames[i]);
-			return 0;
-		}
-		std::string fileContents{ std::istreambuf_iterator<char>(infile), std::istreambuf_iterator<char>() };
-		*/
 		std::string fileContents = LoadFile(filenames[i]);
 		//add the shaders to the shader program
 		AddShader(ShaderProgram, fileContents.c_str(), shaderTypes[i]);
@@ -86,6 +83,13 @@ GLuint ShaderManager::CompileShader(std::vector<const char*> filenames, std::vec
 		fprintf(stderr, "Invalid shader program: '%s'\n", ErrorLog);
 		exit(1);
 	}
+
+	//delete the temporary shader objects that went into compiling the whole shader
+	std::list<GLuint>::iterator iter = m_shader_obj_list.begin();
+	for (; iter != m_shader_obj_list.end(); iter++) {
+		glDeleteShader(*iter);
+	}
+	m_shader_obj_list.clear();
 
 	//return our shader for the user's nefarious purposes
 	return ShaderProgram;
