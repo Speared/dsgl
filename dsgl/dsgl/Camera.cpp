@@ -1,18 +1,20 @@
 #include "Camera.h"
 std::list<Camera*> Camera::ActiveCameras;
+Camera *Camera::currentlyDrawingCamera;
 
 void Camera::DrawAllCameras(Node node) {
 	std::list<Camera*>::iterator iter = ActiveCameras.begin();
 	for (; iter != ActiveCameras.end(); iter++) {
+		//keep track of which camera is drawing this scene 
+		currentlyDrawingCamera = (*iter);
 		(*iter)->Draw(node);
 	}
+	//when we're done drawing make a note that there is no current camera anymore
+	currentlyDrawingCamera = 0;
 }
 
 void Camera::DrawAllCameras() {
-	std::list<Camera*>::iterator iter = ActiveCameras.begin();
-	for (; iter != ActiveCameras.end(); iter++) {
-		(*iter)->Draw(SceneGraph::root);
-	}
+	DrawAllCameras(SceneGraph::root);
 }
 
 Camera::Camera(PersProjInfo& info)
@@ -33,12 +35,6 @@ void Camera::Update()
 
 void Camera::Draw(Node world)
 {
-	//testing doing this closer to the way the tutorial wanted, to test these features of the node
-	//Matrix4f rotationTrans;
-	//rotationTrans.InitCameraTransform(myNode->forward, myNode->up);
-	//Matrix4f positionTrans;
-	//positionTrans.InitTranslationTransform(myNode->worldPos);
-	//world.Draw(m_perspective * rotationTrans * positionTrans);
 
 	//draws the given node with our perspective and the inverse of our transform as the parent transform
 	Matrix4f myTrans = myNode->GetTransform();

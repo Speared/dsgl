@@ -6,6 +6,7 @@
 class Camera : public Component
 {
 public:
+	static Camera* currentlyDrawingCamera;
 	static std::list<Camera*> ActiveCameras;
 	static void DrawAllCameras(Node node);
 	static void DrawAllCameras();

@@ -54,10 +54,8 @@ void RenderSceneCB()
 
 	//These are the only lines that actually belong here
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//camera.Draw(world);
 	SceneGraph::root.Update(Matrix4f::Identity());
 	Camera::DrawAllCameras();
-	//world.Draw(Matrix4f::Identity());
 	glutSwapBuffers();
 
 
@@ -131,7 +129,7 @@ void CreateScene() {
 	moon->AddComponent(m2);
 	moon->translation = Vector3f(0.0f, 10.0f, 0.0f);
 
-	billboardTest->translation = Vector3f(3.0f, 0.0f, 0.0f);
+	billboardTest->translation = Vector3f(0.0f, 0.0f, 5.0f);
 	billboardTest->AddComponent(b1);
 
 	//world.name = "world";
@@ -151,7 +149,8 @@ void CreateScene() {
 
 	planetParent->AddChild(planet);
 	planet->AddChild(moon);
-	moon->AddChild(billboardTest);
+	SceneGraph::root.AddChild(billboardTest);
+	//moon->AddChild(billboardTest);
 }
 
 void InitializeGlutCallbacks()

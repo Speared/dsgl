@@ -74,9 +74,4 @@ void Node::UpdateTransform(Matrix4f parentTransform)
 	forward = (Vector3f(0, 0, 1).RotateBy(transform)).Normalize();
 	right = (Vector3f(1, 0, 0).RotateBy(transform)).Normalize();
 	worldPos = Vector3f(0.0f).TranslateBy(transform);
-	/*
-	up = (Vector3f(0, -1, 0)).Normalize();
-	forward = (Vector3f(0, 0, -1)).Normalize();
-	right = (Vector3f(-1, 0, 0)).Normalize();
-	*/
 }
