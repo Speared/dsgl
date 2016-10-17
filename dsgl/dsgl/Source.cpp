@@ -15,6 +15,7 @@
 #include "SceneGraph.h"
 #include "FirstPersonControl.h"
 #include "Texture.h"
+#include "Billboard.h"
 #define WINDOW_WIDTH 100
 #define WINDOW_HEIGHT 100
 
@@ -27,6 +28,7 @@ const char* uniformName = "gWorld";
 Node* planetParent;
 Node* planet;
 Node* moon;
+Node* billboardTest;
 Node* cameraNode;
 Node* test;
 Camera* camera;
@@ -97,21 +99,27 @@ void CreateScene() {
 	moon = new Node();
 	cameraNode = new Node();
 	test = new Node();
+	billboardTest = new Node();
 
 	cameraControls = new FirstPersonControl();
 
 	Model* m1 = new Model();
 	Model* m2 = new Model();
+	Billboard* b1 = new Billboard();
+
 	//Model* m3 = new Model();
 	m1->textureName = "animuTexture";
 	m2->textureName = "testTexture";
-	//m3->textureName = "testTexture";
+	b1->textureName = "animuTexture";
+
 	m1->shaderName = shaderName;
 	m2->shaderName = shaderName;
-	//m3->shaderName = shaderName;
+	b1->shaderName = shaderName;
+	
 	m1->uniformName = uniformName;
 	m2->uniformName = uniformName;
-	//m3->uniformName = uniformName;
+	b1->uniformName = uniformName;
+	
 	CreateIndexBuffer(*m1);
 	CreateIndexBuffer(*m2);
 	//CreateIndexBuffer(*m3);
@@ -122,7 +130,12 @@ void CreateScene() {
 	planetParent->translation = Vector3f(0, 0, 20);
 	moon->AddComponent(m2);
 	moon->translation = Vector3f(0.0f, 10.0f, 0.0f);
+
+	billboardTest->translation = Vector3f(3.0f, 0.0f, 0.0f);
+	billboardTest->AddComponent(b1);
+
 	//world.name = "world";
+	billboardTest->name = "billboard";
 	planet->name = "planet";
 	moon->name = "moon";
 
@@ -138,6 +151,7 @@ void CreateScene() {
 
 	planetParent->AddChild(planet);
 	planet->AddChild(moon);
+	moon->AddChild(billboardTest);
 }
 
 void InitializeGlutCallbacks()

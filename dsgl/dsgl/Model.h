@@ -7,13 +7,7 @@
 #include "math_3d.h"
 #include "ShaderManager.h"
 #include "Component.h"
-struct Vertex
-{
-	Vector3f position;
-	Vector2f textureCoordinate;
-	Vertex(Vector3f position, Vector2f textureCoordinate) :
-		position(position), textureCoordinate(textureCoordinate) {}
-};
+#include "Vertex.h"
 
 class Model : public Component
 {
