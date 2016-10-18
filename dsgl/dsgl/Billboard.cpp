@@ -37,15 +37,12 @@ void Billboard::Draw(Matrix4f transform) {
 	myModel->textureName = textureName;
 	myModel->uniformName = uniformName;
 	
-	//Vector3f translatedPos = myNode->translation.TranslateBy(transform);
-	Matrix4f RotationlessTrans;
-	
-	//RotationlessTrans.InitTranslationTransform(myNode->worldPos);
-	RotationlessTrans.InitTranslationTransform(myNode->worldPos.TranslateBy(transform));
-	
-	Matrix4f RotateToCamera;
-	RotateToCamera.InitFromToRotation(myNode->forward, Camera::currentlyDrawingCamera->myNode->forward);
+	Matrix4f RotateUpToCamera;
+	RotateUpToCamera.InitFromToRotation(myNode->up, Camera::currentlyDrawingCamera->myNode->up);
 
-	myModel->Draw(transform * RotateToCamera);
+	Matrix4f RotateRightToCamera;
+	RotateRightToCamera.InitFromToRotation(myNode->right, Camera::currentlyDrawingCamera->myNode->right);
+
+	myModel->Draw(transform * RotateUpToCamera * RotateRightToCamera);
 	
 }
