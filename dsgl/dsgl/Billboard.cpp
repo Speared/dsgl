@@ -30,6 +30,8 @@ Billboard::~Billboard()
 }
 
 void Billboard::Draw(Matrix4f transform) {
+	//TODO: make billboards not try to draw if they are behind the camera
+	
 	//there may be a better way to assign shader/uniform to the model than doing it every frame
 	myModel->shaderName = shaderName;
 	myModel->textureName = textureName;
@@ -45,19 +47,5 @@ void Billboard::Draw(Matrix4f transform) {
 	RotateToCamera.InitFromToRotation(myNode->forward, Camera::currentlyDrawingCamera->myNode->forward);
 
 	myModel->Draw(transform * RotateToCamera);
-	
-	printf("\n\nnode forward ");
-	myNode->forward.Print();
-	printf("\ncamera forward: ");
-	Camera::currentlyDrawingCamera->myNode->forward.Print();
-	/*
-	Vector3f mf = myNode->forward;
-
-	printf("\nforward: ");
-	mf = mf.RotateBy(Camera::currentlyDrawingCamera->myNode->GetTransform().Inverse());
-	mf.Print();
-	*/
-	
-	//myModel->Draw(RotationlessTrans);
 	
 }

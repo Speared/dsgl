@@ -255,7 +255,18 @@ void Matrix4f::InitFromToRotation(Vector3f from, Vector3f to) {
 	//normalize in case we arn't
 	from.Normalize();
 	to.Normalize();
+
 	Vector3f axisOfRotation = from.Cross(to);
+
+	if (axisOfRotation.x == 0 && axisOfRotation.y == 0 && axisOfRotation.z == 0) {
+		//if we're rotating from a vector to the same vector just become an identity matrix
+		//TODO: make this function able to tell if the vectors are pointing in oposit directions and deal with that properly
+		InitIdentity();
+		return;
+	}
+
+	axisOfRotation.Normalize();
+
 	float rotationAngle = Vector3f::Angle(from, to);
 
 	float c = cos(rotationAngle);

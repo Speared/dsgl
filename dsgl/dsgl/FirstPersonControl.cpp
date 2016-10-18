@@ -13,6 +13,7 @@ void FirstPersonControl::Update()
 		printf("Escape pressed. Get key down knoledge get!");
 	}
 
+	//arrow keys to move
 	if (GetAsyncKeyState(VK_UP) & DOWN) {
 		myNode->translation += myNode->forward * STEP;
 	}
@@ -29,6 +30,16 @@ void FirstPersonControl::Update()
 		myNode->translation += myNode->right * STEP;
 	}
 
+	//R/F to move up and down, becaus why not?
+	if (GetAsyncKeyState('R') & DOWN) {
+		myNode->translation += myNode->up * -STEP;
+	}
+
+	if (GetAsyncKeyState('F') & DOWN) {
+		myNode->translation += myNode->up * STEP;
+	}
+
+	//WASD to turn
 	if (GetAsyncKeyState('A') & DOWN) {
 		myNode->rotation.y += 1;
 	}
