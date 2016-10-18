@@ -1,7 +1,7 @@
 #include "Billboard.h"
 #include "Texture.h"
 #include "Node.h"
-
+#include "Camera.h"
 
 Billboard::Billboard()
 {
@@ -34,5 +34,27 @@ void Billboard::Draw(Matrix4f transform) {
 	myModel->shaderName = shaderName;
 	myModel->textureName = textureName;
 	myModel->uniformName = uniformName;
+	
+	//Vector3f translatedPos = myNode->translation.TranslateBy(transform);
+	Matrix4f RotationlessTrans;
+	
+	//RotationlessTrans.InitTranslationTransform(myNode->worldPos);
+	RotationlessTrans.InitTranslationTransform(myNode->worldPos.TranslateBy(transform));
+	
 	myModel->Draw(transform);
+	
+	printf("\n\"world\" pos: ");
+	myNode->worldPos.Print();
+	printf("\ncamera pos: ");
+	Camera::currentlyDrawingCamera->myNode->worldPos.Print();
+	/*
+	Vector3f mf = myNode->forward;
+
+	printf("\nforward: ");
+	mf = mf.RotateBy(Camera::currentlyDrawingCamera->myNode->GetTransform().Inverse());
+	mf.Print();
+	*/
+	
+	//myModel->Draw(RotationlessTrans);
+	
 }

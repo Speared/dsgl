@@ -9,7 +9,8 @@ Node::Node()
 	rotation = Vector3f(0.0f);
 	scale = Vector3f(1.0f);
 	_pipeline = Pipeline();
-	UpdateTransform(Matrix4f::Identity());
+	UpdateWorldTransform(Matrix4f::Identity());
+	UpdateCameraTransform(Matrix4f::Identity());
 }
 
 Node::~Node()
@@ -28,17 +29,17 @@ void Node::RemoveChild(Node *oldNode) {
 	//_children.remove(oldNode);
 }
 void Node::Draw(Matrix4f parentTransform) {
-	UpdateTransform(parentTransform);
+	UpdateCameraTransform(parentTransform);
 
 	for (std::list<Component*>::iterator iter = components.begin(); iter != components.end(); iter++) {
-		(*iter)->Draw(transform);
+		(*iter)->Draw(cameraTransform);
 	}
 
 	//pass the draw call to the next node
 	//passing along the transforms
 	std::list<Node*>::iterator iter;
 	for (iter = _children.begin(); iter != _children.end(); ++iter) {
-		(*iter)->Draw(transform);
+		(*iter)->Draw(cameraTransform);
 	}
 }
 
@@ -50,7 +51,7 @@ void Node::AddComponent(Component* newComponent)
 
 void Node::Update(Matrix4f parentTransform)
 {
-	UpdateTransform(parentTransform);
+	UpdateWorldTransform(parentTransform);
 
 	for (std::list<Component*>::iterator iter = components.begin(); iter != components.end(); iter++) {
 		(*iter)->Update();
@@ -58,20 +59,34 @@ void Node::Update(Matrix4f parentTransform)
 
 	std::list<Node*>::iterator iter;
 	for (iter = _children.begin(); iter != _children.end(); ++iter) {
-		(*iter)->Update(transform);
+		(*iter)->Update(worldTransform);
 	}
 }
 
-void Node::UpdateTransform(Matrix4f parentTransform)
+void Node::UpdateCameraTransform(Matrix4f parentTransform)
 {
 	_pipeline.SetParentTrans(parentTransform);
 	_pipeline.SetPosition(translation);
 	_pipeline.SetRotation(rotation);
 	_pipeline.SetScale(scale);
-	transform = _pipeline.GetTransform();
+	cameraTransform = _pipeline.GetTransform();
 	
-	up = (Vector3f(0, 1, 0).RotateBy(transform)).Normalize();
-	forward = (Vector3f(0, 0, 1).RotateBy(transform)).Normalize();
-	right = (Vector3f(1, 0, 0).RotateBy(transform)).Normalize();
-	worldPos = Vector3f(0.0f).TranslateBy(transform);
+	cameraUp = (Vector3f(0, 1, 0).RotateBy(cameraTransform)).Normalize();
+	cameraForward = (Vector3f(0, 0, 1).RotateBy(cameraTransform)).Normalize();
+	cameraRight = (Vector3f(1, 0, 0).RotateBy(cameraTransform)).Normalize();
+	cameraPos = Vector3f(0.0f).TranslateBy(cameraTransform);
+}
+
+void Node::UpdateWorldTransform(Matrix4f parentTransform)
+{
+	_pipeline.SetParentTrans(parentTransform);
+	_pipeline.SetPosition(translation);
+	_pipeline.SetRotation(rotation);
+	_pipeline.SetScale(scale);
+	worldTransform = _pipeline.GetTransform();
+
+	up = (Vector3f(0, 1, 0).RotateBy(worldTransform)).Normalize();
+	forward = (Vector3f(0, 0, 1).RotateBy(worldTransform)).Normalize();
+	right = (Vector3f(1, 0, 0).RotateBy(worldTransform)).Normalize();
+	worldPos = Vector3f(0.0f).TranslateBy(worldTransform);
 }
