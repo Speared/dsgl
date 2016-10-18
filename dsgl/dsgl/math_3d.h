@@ -124,8 +124,10 @@ struct Vector3f
 		return &(x);
 	}
 
-
 	Vector3f Cross(const Vector3f& v) const;
+
+	//added by David Speare, who is slightly confused why this wasn't already in here
+	float Dot(const Vector3f& v) const;
 
 	Vector3f& Normalize();
 
@@ -135,6 +137,9 @@ struct Vector3f
 
 	Vector3f TranslateBy(const Matrix4f& m) const;
 	
+	//added by David Speare. Gets the angle from this vector to the other one
+	static float Angle(Vector3f v1, Vector3f v2);
+
 	void Print() const
 	{
 		printf("(%.02f, %.02f, %.02f)", x, y, z);
@@ -364,7 +369,8 @@ public:
 	float Determinant() const;
 
 	Matrix4f& Inverse();
-
+	//added by David Speare
+	void InitFromToRotation(Vector3f from, Vector3f to);
 	void InitScaleTransform(float ScaleX, float ScaleY, float ScaleZ);
 	void InitScaleTransform(Vector3f scale);
 	void InitRotateTransform(float RotateX, float RotateY, float RotateZ);

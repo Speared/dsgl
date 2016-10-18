@@ -41,12 +41,15 @@ void Billboard::Draw(Matrix4f transform) {
 	//RotationlessTrans.InitTranslationTransform(myNode->worldPos);
 	RotationlessTrans.InitTranslationTransform(myNode->worldPos.TranslateBy(transform));
 	
-	myModel->Draw(transform);
+	Matrix4f RotateToCamera;
+	RotateToCamera.InitFromToRotation(myNode->forward, Camera::currentlyDrawingCamera->myNode->forward);
+
+	myModel->Draw(transform * RotateToCamera);
 	
-	printf("\n\"world\" pos: ");
-	myNode->worldPos.Print();
-	printf("\ncamera pos: ");
-	Camera::currentlyDrawingCamera->myNode->worldPos.Print();
+	printf("\n\nnode forward ");
+	myNode->forward.Print();
+	printf("\ncamera forward: ");
+	Camera::currentlyDrawingCamera->myNode->forward.Print();
 	/*
 	Vector3f mf = myNode->forward;
 

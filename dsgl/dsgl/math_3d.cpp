@@ -23,7 +23,6 @@ Some functions added by David Speare
 #include <random>
 #include "math_3d.h"
 
-
 Vector3f Vector3f::Cross(const Vector3f& v) const
 {
 	const float _x = y * v.z - z * v.y;
@@ -31,6 +30,11 @@ Vector3f Vector3f::Cross(const Vector3f& v) const
 	const float _z = x * v.y - y * v.x;
 
 	return Vector3f(_x, _y, _z);
+}
+
+float Vector3f::Dot(const Vector3f& v) const
+{
+	return x * v.x + y * v.y + z * v.z;
 }
 
 Vector3f& Vector3f::Normalize()
@@ -85,6 +89,15 @@ Vector3f Vector3f::TranslateBy(const Matrix4f& m) const
 	r.z = m.m[2][0] * x + m.m[2][1] * y + m.m[2][2] * z + m.m[2][3];
 	
 	return r;
+}
+
+//David Speare!
+float Vector3f::Angle(Vector3f v1, Vector3f v2)
+{
+	//normalize in case we arn't
+	v1.Normalize();
+	v2.Normalize();
+	return acos(v1.Dot(v2));
 }
 
 void Matrix4f::InitScaleTransform(float ScaleX, float ScaleY, float ScaleZ)
@@ -237,6 +250,48 @@ void Matrix4f::InitOrthoProjTransform(const PersProjInfo& p)
 	m[3][0] = 0.0f;         m[3][1] = 0.0f;          m[3][2] = 0.0f;        m[3][3] = 1.0;
 }
 
+//how to do this taken from http://www.euclideanspace.com/maths/geometry/rotations/conversions/angleToMatrix/
+void Matrix4f::InitFromToRotation(Vector3f from, Vector3f to) {
+	//normalize in case we arn't
+	from.Normalize();
+	to.Normalize();
+	Vector3f axisOfRotation = from.Cross(to);
+	float rotationAngle = Vector3f::Angle(from, to);
+
+	float c = cos(rotationAngle);
+	float s = sin(rotationAngle);
+	float t = 1.0f - c;
+
+	m[0][0] = c + axisOfRotation.x*axisOfRotation.x*t;
+	m[1][1] = c + axisOfRotation.y*axisOfRotation.y*t;
+	m[2][2] = c + axisOfRotation.z*axisOfRotation.z*t;
+
+	float temp1 = axisOfRotation.x*axisOfRotation.y*t;
+	float temp2 = axisOfRotation.z*s;
+
+	m[1][0] = temp1 + temp2;
+	m[0][1] = temp1 - temp2;
+
+	temp1 = axisOfRotation.x*axisOfRotation.z*t;
+	temp2 = axisOfRotation.y*s;
+
+	m[2][0] = temp1 - temp2;
+	m[0][2] = temp1 + temp2;
+
+	temp1 = axisOfRotation.y*axisOfRotation.z*t;
+	temp2 = axisOfRotation.x * s;
+
+	m[2][1] = temp1 + temp2;
+	m[1][2] = temp1 - temp2;
+
+	m[3][0] = 0;
+	m[3][1] = 0;
+	m[3][2] = 0;
+	m[0][3] = 0;
+	m[1][3] = 0;
+	m[2][3] = 0;
+	m[3][3] = 1;
+}
 
 float Matrix4f::Determinant() const
 {
