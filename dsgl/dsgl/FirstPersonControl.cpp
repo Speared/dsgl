@@ -31,11 +31,11 @@ void FirstPersonControl::Update()
 	}
 
 	//R/F to move up and down, becaus why not?
-	if (GetAsyncKeyState('R') & DOWN) {
+	if (GetAsyncKeyState('F') & DOWN) {
 		myNode->translation += myNode->up * -STEP;
 	}
 
-	if (GetAsyncKeyState('F') & DOWN) {
+	if (GetAsyncKeyState('R') & DOWN) {
 		myNode->translation += myNode->up * STEP;
 	}
 
